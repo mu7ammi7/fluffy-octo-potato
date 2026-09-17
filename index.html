@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A Little Surprise 🌸</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    overflow-x:hidden;
+    overflow-y:auto;
+    font-family:Georgia, serif;
+    background:linear-gradient(#120b25,#30143f,#5b244d);
+    color:white;
+    text-align:center;
+}
+
+
+.container{
+    padding:40px 20px;
+}
+
+
+h1{
+    font-size:38px;
+    text-shadow:0 0 20px pink;
+}
+
+
+p{
+    font-size:18px;
+}
+
+
+button{
+    margin:15px;
+    padding:14px 30px;
+    border:none;
+    border-radius:30px;
+    background:#ff8fbd;
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    box-shadow:0 0 25px pink;
+}
+
+
+.message{
+    display:none;
+    margin:25px auto;
+    max-width:600px;
+    font-size:21px;
+    line-height:1.7;
+}
+
+
+.gallery{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+
+.gallery img{
+    width:130px;
+    height:130px;
+    object-fit:cover;
+    border-radius:20px;
+    border:3px solid white;
+}
+
+
+.secret{
+    display:none;
+    font-size:21px;
+    margin:25px;
+}
+
+
+
+/* Floating flowers */
+
+.flower{
+
+    position:fixed;
+    bottom:-50px;
+    font-size:35px;
+
+    animation:rise 5s linear forwards;
+
+}
+
+
+@keyframes rise{
+
+0%{
+    transform:translateY(0) rotate(0);
+    opacity:0;
+}
+
+20%{
+    opacity:1;
+}
+
+100%{
+    transform:translateY(-110vh) rotate(360deg);
+    opacity:0;
+}
+
+}
+
+
+
+/* Hearts */
+
+.heart{
+
+    position:fixed;
+    bottom:-40px;
+    font-size:25px;
+    animation:heart 4s linear forwards;
+
+}
+
+
+@keyframes heart{
+
+100%{
+    transform:translateY(-110vh) scale(1.5);
+    opacity:0;
+}
+
+}
+
+
+
+@media(max-width:600px){
+
+h1{
+    font-size:32px;
+}
+
+
+.message{
+    font-size:18px;
+}
+
+
+.gallery img{
+    width:100px;
+    height:100px;
+}
+
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+Hey Babyyyyy 🐥🌷
+</h1>
+
+
+<p>
+I made something special for you 💗
+</p>
+
+
+
+<button onclick="startSurprise()">
+Click Me 💖
+</button>
+
+
+
+
+<div class="message" id="message">
+
+<div id="letter"></div>
+
+</div>
+
+
+
+
+<audio id="music" loop>
+<source src="tumhiho.mp3" type="audio/mpeg">
+</audio>
+
+
+
+
+<button onclick="showSecret()">
+Secret Message 💌
+</button>
+
+
+<div class="secret" id="secret">
+
+You are one of my favourite person ❤️<br>
+Thank you for being you 🌸
+
+</div>
+
+
+
+
+<h2>
+Our Memories 📸
+</h2>
+
+
+<div class="gallery">
+
+<img src="photos/photo1.jpg">
+<img src="photos/photo2.jpg">
+<img src="photos/photo3.jpg">
+
+</div>
+
+
+</div>
+
+
+
+
+
+<script>
+
+let letterStarted = false;
+
+
+function startSurprise(){
+
+
+    // Show message
+
+    document.getElementById("message").style.display="block";
+
+
+
+    // Music only starts normally
+
+    let music=document.getElementById("music");
+
+    if(music.paused){
+        music.play();
+    }
+
+
+
+
+
+    // Typing only first time
+
+    if(!letterStarted){
+
+
+        letterStarted = true;
+
+
+        let text =
+        "Babyy 🐥🌷"+
+        "You make my normal days feel special ❤️"+
+        "This little surprise is made only for you 🌸✨";
+
+
+        let i=0;
+
+
+        function typeText(){
+
+
+            if(i < text.length){
+
+
+                document.getElementById("letter").innerHTML += text.charAt(i);
+
+
+                i++;
+
+
+                setTimeout(typeText,60);
+
+
+            }
+
+
+        }
+
+
+        typeText();
+
+
+    }
+
+
+
+
+
+    // FLOWERS EVERY CLICK 🌸
+
+
+    let flowers=[
+        "🌸",
+        "🌷",
+        "🌹",
+        "🌺",
+        "💐"
+    ];
+
+
+
+    for(let i=0;i<40;i++){
+
+
+        let f=document.createElement("div");
+
+
+        f.className="flower";
+
+
+        f.innerHTML =
+        flowers[Math.floor(Math.random()*flowers.length)];
+
+
+
+        f.style.left=Math.random()*100+"%";
+
+
+        f.style.animationDuration =
+        (3+Math.random()*3)+"s";
+
+
+
+        document.body.appendChild(f);
+
+
+
+        setTimeout(()=>{
+
+            f.remove();
+
+        },7000);
+
+
+    }
+
+
+
+
+
+    // HEARTS EVERY CLICK ❤️
+
+
+    for(let i=0;i<20;i++){
+
+
+        let h=document.createElement("div");
+
+
+        h.className="heart";
+
+
+        h.innerHTML="❤️";
+
+
+
+        h.style.left=Math.random()*100+"%";
+
+
+
+        document.body.appendChild(h);
+
+
+
+        setTimeout(()=>{
+
+            h.remove();
+
+        },5000);
+
+
+    }
+
+
+}
+
+
+
+
+
+function showSecret(){
+
+document.getElementById("secret").style.display="block";
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
